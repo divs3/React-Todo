@@ -11,15 +11,6 @@ const TodoList = () => {
     setTodoList(JSON.parse(localStorage.getItem("todoList")));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-  }, [todoList]);
-
-  useEffect(() => {
-     console.log("todolist",todoList);
-    //  console.log('set Todo List',setTodoList(todoList))
-  }, [todoList]);
-
   //Handle Input change
   const handleInputListChange = (e) => {
     setTodoName(e.target.value);
@@ -70,7 +61,6 @@ const TodoList = () => {
   };
 
   const handleEditedValue = (key, val) => {
-    // console.log("Here is the editedalue", key, val);
     //! find te todoitem with the incoming key
     const newtodo = todoList.find((item) => {
       return item.id === key;
@@ -78,14 +68,13 @@ const TodoList = () => {
     newtodo.name = val;
     //! set the list state with the newly edited entry
     //! create a copy of te ex
-    console.log(todoList)
-    const copyTodoList = todoList;
+    const copyTodoList = [...todoList];
     const todoIndex = copyTodoList.findIndex((item) => {
       return item.id === key;
     });
     copyTodoList[todoIndex] = newtodo;
     console.log(copyTodoList, todoList)
-    // setTodoList(copyTodoList);
+    setTodoList(copyTodoList);
   };
  
 
